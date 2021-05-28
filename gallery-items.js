@@ -1,4 +1,4 @@
-export default [
+const picBase= [
   {
     preview:
       'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg',
@@ -63,3 +63,50 @@ export default [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const galleryList = document.querySelector('.js-gallery')
+
+const galleryItems = picBase.map(element => {
+ return `<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href="${element.original}"
+  >
+    <img
+      class="gallery__image"
+      src="${element.preview}"
+      data-source="${element.original}"
+      alt="${element.description}"
+    />
+  </a>
+</li> ` 
+}).join('')
+
+galleryList.insertAdjacentHTML('afterbegin', galleryItems)
+
+galleryList.addEventListener('click', onListClick)
+
+const lightbox=document.querySelector(body > div)
+
+function onListClick(event) {
+const pickOnImage=event.target.classList.contains('gallery__image')
+
+  if (!pickOnImage){
+    return
+  }
+  else if (pickOnImage){
+    console.log('object');
+  }
+}
+
+function onOpenModal(event) {
+    event.preventDefault();
+}
+
+
+
+// function preventLinkOpen(event) {
+//   if (event.target.classList.contains('gallery__link')) {
+//     event.preventDefault()
+//   }
+// }
