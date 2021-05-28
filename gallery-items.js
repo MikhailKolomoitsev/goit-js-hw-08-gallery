@@ -65,6 +65,10 @@ const picBase= [
 ];
 
 const galleryList = document.querySelector('.js-gallery')
+const lightbox=document.querySelector('.lightbox')
+const closeButton = document.querySelector('.lightbox__button')
+const lightboxOverlay=document.querySelector('.lightbox__overlay')
+const lightboxImage=document.querySelector('.lightbox__image')
 
 const galleryItems = picBase.map(element => {
  return `<li class="gallery__item">
@@ -81,32 +85,39 @@ const galleryItems = picBase.map(element => {
   </a>
 </li> ` 
 }).join('')
-
 galleryList.insertAdjacentHTML('afterbegin', galleryItems)
 
-galleryList.addEventListener('click', onListClick)
 
-const lightbox=document.querySelector(body > div)
-
-function onListClick(event) {
+galleryList.addEventListener('click', openLightbox)
+function openLightbox(event) {
 const pickOnImage=event.target.classList.contains('gallery__image')
-
+ event.preventDefault();
   if (!pickOnImage){
-    return
+  return
   }
   else if (pickOnImage){
-    console.log('object');
+    lightbox.classList.add('is-open')
+    lightboxImage.src=`${event.target.src}`
   }
 }
 
-function onOpenModal(event) {
-    event.preventDefault();
+lightboxOverlay.addEventListener('click', closeLightbox)
+closeButton.addEventListener('click', closeLightbox)
+function closeLightbox() {
+  lightbox.classList.remove('is-open')
+  lightboxImage.src=""
 }
 
+window.addEventListener('keydown', commandsForLightbox)
 
-
-// function preventLinkOpen(event) {
-//   if (event.target.classList.contains('gallery__link')) {
-//     event.preventDefault()
-//   }
-// }
+function commandsForLightbox(event) {
+  if (event.code === "Escape") {
+    closeLightbox()
+  }
+  // esle if (KeyboardEvent.code = "ArrowRight") {
+  //   console.log('ArrowRight');
+  // }
+  // esle if (KeyboardEvent.code = "ArrowLeft") {
+  //   console.log('ArrowLeft');
+  // }
+}
