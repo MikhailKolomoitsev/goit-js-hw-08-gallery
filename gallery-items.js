@@ -109,16 +109,16 @@ function closeLightbox() {
 }
 
 window.addEventListener('keydown', commandsForLightbox)
-
+  
 function commandsForLightbox(event) {
 
   if (event.code === "Escape") {closeLightbox()
   }
   else if (event.code === "ArrowLeft") {
-    console.log("Left");
+ 
 } 
   else if (event.code === "ArrowRight") {
-    console.log("Right");
+
   }
   
 }
