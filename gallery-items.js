@@ -97,7 +97,7 @@ const pickOnImage=event.target.classList.contains('gallery__image')
   }
   else if (pickOnImage){
     lightbox.classList.add('is-open')
-    lightboxImage.src=`${event.target.src}`
+    lightboxImage.src=`${event.target.dataset.source}`
   }
 }
 
@@ -108,18 +108,29 @@ function closeLightbox() {
   lightboxImage.src=""
 }
 
+
+const images=document.querySelectorAll('.gallery__image')
+const arrayImages = []
+images.forEach(el => arrayImages.push(el.getAttribute('data-source')))
 window.addEventListener('keydown', commandsForLightbox)
-
 function commandsForLightbox(event) {
+  let newIndex;
+  const currentIndex = arrayImages.indexOf(lightboxImage.src);
 
-  if (event.code === "Escape") {closeLightbox()
-  }
-  else if (event.code === "ArrowLeft") {
- 
-} 
-  else if (event.code === "ArrowRight") {
+  if (event.code === "Escape") {
+    closeLightbox()
+  } else if (event.code === "ArrowRight") {
+    newIndex = currentIndex + 1
+    if (newIndex === arrayImages.length) {
+      newIndex=0
+    }
+} else if (event.code === "ArrowLeft") {
+    newIndex = currentIndex - 1
+    if (newIndex == -1) {
+      newIndex=arrayImages.length-1
+    }
 
   }
-  
+  lightboxImage.src=arrayImages[newIndex]
 }
 
