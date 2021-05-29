@@ -109,7 +109,7 @@ function closeLightbox() {
 }
 
 window.addEventListener('keydown', commandsForLightbox)
-  
+
 function commandsForLightbox(event) {
 
   if (event.code === "Escape") {closeLightbox()
@@ -122,3 +122,4 @@ function commandsForLightbox(event) {
   }
   
 }
+
